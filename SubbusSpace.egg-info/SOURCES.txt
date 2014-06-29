@@ -1,0 +1,6 @@
+README.txt
+setup.py
+SubbusSpace.egg-info/PKG-INFO
+SubbusSpace.egg-info/SOURCES.txt
+SubbusSpace.egg-info/dependency_links.txt
+SubbusSpace.egg-info/top_level.txt

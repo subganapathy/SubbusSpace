@@ -3,6 +3,7 @@
 import glob
 
 from configparser import ConfigParser
+import file_system_reader
 
 class data_reader_initializer:
     CFG_GLOB = '*.cfg'
@@ -23,7 +24,8 @@ class data_reader_initializer:
         
     def get_data_reader(self):
         assert (self.preferred in self.SUPPORTED_STRUCTURES), "An unsupported entity is marked as preferred!"
-        return data_reader()
+        
+        return file_system_reader.file_system_reader(self.param_dict)
 
 
 class data_reader:

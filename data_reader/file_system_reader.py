@@ -38,7 +38,7 @@ class file_system_reader(data_reader_initializer.data_reader):
 
     def get_object(self, id):
         file_name = self.get_object_impl(id)
-        file_data = self.retrieve_data(file_name)p
+        file_data = self.retrieve_data(file_name)
 
     def get_object_id_list_for_tag(self, tag_name):
         print("get_object called")

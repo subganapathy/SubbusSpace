@@ -43,4 +43,5 @@ class data_reader:
 if __name__ == "__main__":
     foo = data_reader_initializer()
     bar = foo.get_data_reader()
-    bar.get_object(1)
+    output = bar.get_object('1:2')
+    print(output)

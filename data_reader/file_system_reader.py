@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
+import data_reader_initializer
 import gzip
 import os
-import data_reader_initializer
 import re
+import tag_manager
 
 from functools import lru_cache
 
@@ -40,8 +41,11 @@ class file_system_reader(data_reader_initializer.data_reader):
         file_name = self.get_object_impl(id)
         file_data = self.retrieve_data(file_name)
 
-    def get_object_id_list_for_tag(self, tag_name):
-        print("get_object called")
+    @lru_cache(maxsize = 1024)
+    def get_object_id_list_for_tag(self, tag_expression):
+        tag_finder = tag_manager.tag_manager(tag_expression, self)
+
+        return tag_finder.parse()
 
     def get_object_id_list_for_full_text(self, full_text):
         print("get_object called")
@@ -68,4 +72,13 @@ class file_system_reader(data_reader_initializer.data_reader):
         with gzip.open(os.path.join(self.root_dir_norm, self.DATA_FOLDER_NAME, file_name), mode = 'rb') as gzipped_data_file:
             file_data = gzipped_data_file.read()
             return file_data.decode('utf-8')
-        
+
+    @lru_cache(maxsize = 1024)
+    def get_tag_data(self, tag_name):
+        self.assert_folder_exists(self.TAG_FOLDER_NAME)
+        with open(os.path.join(self.root_dir_norm, self.TAG_FOLDER_NAME, tag_name), 'r') as tag_file:
+            return set(tag_file.read().splitlines())
+
+    def clear_tag_cache(self):
+        self.get_tag_data.cache_clear()
+        self.get_object_id_list_for_tag.cache_clear()

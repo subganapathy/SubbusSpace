@@ -33,15 +33,22 @@ class data_reader:
     def get_object(self, id):
         raise NotImplementedError()
 
-    def get_object_id_list_for_tag(self, tag_name):
+    def get_object_id_list_for_tag_expression(self, tag_expression):
         raise NotImplementedError()
 
     def get_object_id_list_for_full_text(self, full_text):
         raise NotImplementedError()
 
+    def get_tag_data(self, tag_name):
+        raise NotImplementedError()
+
+    def clear_tag_cache(self):
+        raise NotImplementedError()
+
 
 if __name__ == "__main__":
     foo = data_reader_initializer()
+    
     bar = foo.get_data_reader()
     output = bar.get_object('1:2')
     print(output)
